@@ -1,0 +1,1 @@
+A project made under 1 day please dont judge the code :)
