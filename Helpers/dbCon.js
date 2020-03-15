@@ -8,7 +8,7 @@ let urlDeve = "mongodb://localhost:27017"
 let option = { useNewUrlParser: true, useUnifiedTopology: true }
 
 module.exports.connect = () => new Promise((resolve, reject) => {
-    MongoClient.connect(urlDeve, option, function(err, client) {
+    MongoClient.connect(urlProd, option, function(err, client) {
         if (err) { reject(err); return }
         let db = client.db("bus")
         resolve(db)
