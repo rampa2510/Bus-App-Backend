@@ -1,5 +1,5 @@
 const {get} = require('../Helpers/dbCon')
-const {findOne,updateOne} = require('../Helpers/queryHandler')
+const {findOne,updateOne,findAll} = require('../Helpers/queryHandler')
 
 module.exports.book = async(req,res)=>{
   try {
@@ -11,5 +11,16 @@ module.exports.book = async(req,res)=>{
   } catch (error) {
     console.log(error)
     res.status(500).send({message:"Internal Server Error"})
+  }
+}
+
+module.exports.getAllBuses = async (req,res)=>{
+  try {
+    const db = await get();
+    const allBuses = await findAll('bus',db,{passengers:{$ne:req.body.username}})
+    res.status(200).send({message:"Ok",allBuses})
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({message:'We are expreincing issues please try again or contact the technical team'})
   }
 }
