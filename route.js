@@ -1,6 +1,15 @@
 const router = require('express').Router();
 const {register,login} = require('./Controllers/auth')
+const {updateDriver,deleteDriver,getAllDrivers,addBus} = require('./Controllers/admin')
+const {updateBus,updateBusRoute} = require('./Controllers/driver')
+const {book} = require('./Controllers/passenger')
 router.post('/register',register)
 router.post('/login',login)
-
+router.post('/driver',updateDriver)
+router.delete('/driver',deleteDriver)
+router.get('/driver',getAllDrivers)
+router.post('/bus',addBus)
+router.patch('/bus',updateBus)
+router.patch('/busroute',updateBusRoute)
+router.patch('/passenger',book)
 module.exports = router
