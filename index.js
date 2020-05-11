@@ -14,7 +14,7 @@ app.use('/',require('./route'))
 app.listen(PORT,async ()=>{
   try {
     await connect();
-    console.log("Db connected")
+    console.log("Db connected "+PORT)
   
   } catch (error) {
     console.log(error)

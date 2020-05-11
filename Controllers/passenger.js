@@ -17,8 +17,8 @@ module.exports.book = async(req,res)=>{
 module.exports.getAllBuses = async (req,res)=>{
   try {
     const db = await get();
-    const allBuses = await findAll('bus',db,{passengers:{$ne:req.body.username}})
-    res.status(200).send({message:"Ok",allBuses})
+    const allBuses = await findAll('bus',db,{$and:[{passengers:{$ne:req.body.username}},{start:{$exists:true}}]})
+    res.status(200).send({message:"Ok",data:allBuses})
   } catch (err) {
     console.log(err)
     res.status(500).send({message:'We are expreincing issues please try again or contact the technical team'})
