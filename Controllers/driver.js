@@ -18,7 +18,7 @@ module.exports.updateBusRoute =async (req,res)=>{
     const data = await findOne({number:req.body.number},'bus',db);
     if(data.end===req.body.reached){
       await updateOne({number:req.body.number},{$set:{reached:req.body.reached,endStop:true}},'bus',db);
-      return res.status(200).send({message:'Ok'})
+      return res.status(200).send({message:'Ok',done:true})
     }
     await updateOne({number:req.body.number},{$set:{reached:req.body.reached}},'bus',db);
     res.status(200).send({message:'Ok'})
