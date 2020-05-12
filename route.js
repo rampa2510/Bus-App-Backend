@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {register,login} = require('./Controllers/auth')
 const {updateDriver,deleteDriver,getAllDrivers,addBus} = require('./Controllers/admin')
-const {updateBus,updateBusRoute} = require('./Controllers/driver')
+const {updateBus,updateBusRoute,getVacantBus} = require('./Controllers/driver')
 const {book,getAllBuses,feedback,getAllFeedback} = require('./Controllers/passenger')
 router.post('/register',register)
 router.post('/login',login)
@@ -13,6 +13,7 @@ router.patch('/bus',updateBus)
 router.patch('/busroute',updateBusRoute)
 router.patch('/passenger',book)
 router.get('/bus',getAllBuses)
+router.get('/bus-driver',getVacantBus)
 router.get('/feedback',getAllFeedback)
 router.post('/feedback',feedback)
 module.exports = router
