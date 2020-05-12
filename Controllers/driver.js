@@ -4,7 +4,7 @@ module.exports.updateBus =async (req,res)=>{
   try {
     const db = await get()
     await updateOne({number:req.body.number},
-      {$set:{driver:req.body.username,start:req.body.start,end:req.body.end,time:req.body.time}}
+      {$set:{driver:req.body.username,time:req.body.time}}
       ,'bus',db);
     res.status(200).send({message:'Ok'})
   } catch (error) {
