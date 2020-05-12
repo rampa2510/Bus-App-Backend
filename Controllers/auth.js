@@ -7,16 +7,16 @@ module.exports.register =async (req,res)=>{
     const db =  get();
     const doesUserAlreadyExist = await findOne({username:req.body.username},`${req.body.type}`,db);
     if(doesUserAlreadyExist) return res.status(400).send({message:"Username taken"})
+    const hashPass =await hash(req.body.password, parseInt(10, 10));
     if(req.body.type!=='driver'){
       
-      const hashPass =await hash(req.body.password, parseInt(10, 10));
 
       await insertOne({...req.body,password:hashPass},`${req.body.type}`,db);
 
       res.status(200).send({message:'Ok'})
       
     }else{
-      await insertOne({...req.body,verified:false},`${req.body.type}`,db);
+      await insertOne({...req.body,password:hashPass,verified:false},`${req.body.type}`,db);
       res.status(200).send({message:'Ok',data:{...req.body}})
     }
   } catch (error) {
