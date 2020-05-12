@@ -27,8 +27,9 @@ module.exports.getVacantBus = async (req,res)=>{
   try {
     const db = await get()
     const checkIfBusIsDriving = await findOne({driver:req.body.username},'bus',db)
-    if(checkIfBusIsDriving){
-      return res.status(200).send({message:"Ok",data:{...checkIfBusIsDriving,driverBusy:true}})
+    if(checkIfBusIsDriving && checkIfBusIsDriving.reached!==checkIfBusIsDriving.end){
+      // if(checkIfBusIsDriving.)
+        return res.status(200).send({message:"Ok",data:{...checkIfBusIsDriving,driverBusy:true}})
     }
     const getVacantBus = await findAll('bus',db,{driver:{$exists:false}})
     res.status(200).send({message:"Ok",data:getVacantBus})
