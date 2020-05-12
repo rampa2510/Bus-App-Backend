@@ -1,5 +1,5 @@
 const {get} = require('../Helpers/dbCon')
-const {findOne,updateOne,findAll} = require('../Helpers/queryHandler')
+const {findOne,updateOne,findAll,insertOne} = require('../Helpers/queryHandler')
 
 module.exports.book = async(req,res)=>{
   try {
@@ -19,6 +19,28 @@ module.exports.getAllBuses = async (req,res)=>{
     const db = await get();
     const allBuses = await findAll('bus',db,{$and:[{passengers:{$ne:req.body.username}},{start:{$exists:true}}]})
     res.status(200).send({message:"Ok",data:allBuses})
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({message:'We are expreincing issues please try again or contact the technical team'})
+  }
+}
+
+module.exports.feedback = async (req,res)=>{
+  try {
+    const db = await get();
+    await insertOne({...req.body},'feedback',db);
+    res.status(200).send({message:'Ok'})
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({message:'We are expreincing issues please try again or contact the technical team'})
+  }
+}
+
+module.exports.getAllFeedback = async (req,res)=>{
+  try {
+    const db = await get()
+    const drivers = await findAll('feedback',db)
+    res.status(200).send({mesage:"Ok",data:drivers})
   } catch (err) {
     console.log(err)
     res.status(500).send({message:'We are expreincing issues please try again or contact the technical team'})
