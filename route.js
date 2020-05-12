@@ -13,7 +13,7 @@ router.patch('/bus',updateBus)
 router.patch('/busroute',updateBusRoute)
 router.patch('/passenger',book)
 router.get('/bus',getAllBuses)
-router.get('/bus-driver',getVacantBus)
+router.post('/bus-driver',getVacantBus)
 router.get('/feedback',getAllFeedback)
 router.post('/feedback',feedback)
 module.exports = router
