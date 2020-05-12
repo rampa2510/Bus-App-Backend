@@ -17,7 +17,7 @@ module.exports.updateBusRoute =async (req,res)=>{
     const db = await get()
     const data = await findOne({number:req.body.number},'bus',db);
     if(data.end===req.body.reached){
-      await updateOne({number:req.body.number},{$set:{reached:req.body.reached,end:true}},'bus',db);
+      await updateOne({number:req.body.number},{$set:{reached:req.body.reached,endStop:true}},'bus',db);
       return res.status(200).send({message:'Ok'})
     }
     await updateOne({number:req.body.number},{$set:{reached:req.body.reached}},'bus',db);
@@ -31,7 +31,7 @@ module.exports.updateBusRoute =async (req,res)=>{
 module.exports.getVacantBus = async (req,res)=>{
   try {
     const db = await get()
-    const checkIfBusIsDriving = await findOne({$and:[{driver:req.body.username},{end:{$exists:false}}]},'bus',db)
+    const checkIfBusIsDriving = await findOne({$and:[{driver:req.body.username},{endStop:{$exists:false}}]},'bus',db)
     if(checkIfBusIsDriving){
       // if(checkIfBusIsDriving.)
         return res.status(200).send({message:"Ok",data:{...checkIfBusIsDriving,driverBusy:true}})
